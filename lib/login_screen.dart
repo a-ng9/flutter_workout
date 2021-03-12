@@ -1,14 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_workout/const.dart';
+import 'package:flutter_workout/roundedButton.dart';
 
 class LoginScreen extends StatelessWidget {
-  static String id = 'loginScreen';
+  static const String id = 'loginScreen';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Center(child: Text('This is the login screen'))],
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.width * 0.25),
+                  Container(
+                    height: 150,
+                    width: 150,
+                    color: lightRed,
+                    child: Center(child: Text("Logo")),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 125),
+                TextFormField(decoration: inputTextField),
+                SizedBox(height: 8.0),
+                TextFormField(
+                  decoration: inputTextField.copyWith(
+                      hintText: "Password",
+                      prefixIcon:
+                          Icon(Icons.lock_outline, color: Colors.white)),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Expanded(child: SizedBox()),
+                RoundedButton(colour: lightRed, text: 'Login', pressed: () {}),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Don't have an account?"),
+                    TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(color: lightRed),
+                        ))
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_workout/const.dart';
+import 'package:flutter_workout/home_screen.dart';
 import 'package:flutter_workout/login_screen.dart';
 
 void main() {
@@ -10,13 +12,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+        theme: ThemeData.dark().copyWith(
+          accentColor: lightRed,
+          scaffoldBackgroundColor: midNightBlue,
         ),
-        // home: MyHomePage(title: 'Flutter Demo Home Page'),
         initialRoute: LoginScreen.id,
         routes: {
           LoginScreen.id: (context) => LoginScreen(),
+          HomeScreen.id: (context) => HomeScreen()
         });
   }
 }
