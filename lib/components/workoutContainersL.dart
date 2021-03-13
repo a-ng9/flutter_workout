@@ -41,14 +41,8 @@ class WorkoutContainerL extends StatelessWidget {
             ),
             //Picture
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                width: 85,
-                height: 79,
-                color: Colors.black,
-                child: Center(child: Text('Picture')),
-              ),
-            )
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Image.asset('assets/images/Image.png'))
           ],
         ),
       ),

@@ -19,12 +19,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.width * 0.25),
-                  Container(
-                    height: 150,
-                    width: 150,
-                    color: lightRed,
-                    child: Center(child: Text("Logo")),
-                  ),
+                  Image.asset("assets/images/logoTemplate.png")
                 ],
               ),
             ),

@@ -28,13 +28,7 @@ class WorkoutContainerS extends StatelessWidget {
                 Text(title, style: TextStyle(color: darkBlack, fontSize: 23)),
           ),
           //Picture
-          Container(
-            margin: const EdgeInsets.all(5),
-            width: 85,
-            height: 79,
-            color: Colors.black,
-            child: Center(child: Text('Picture')),
-          ),
+          Image.asset("assets/images/Image.png")
         ],
       ),
     );
