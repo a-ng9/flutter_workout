@@ -4,7 +4,6 @@ import 'package:flutter_workout/components/workoutContainersS.dart';
 import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/login_screen.dart';
 
-
 class WorkoutListScreen extends StatelessWidget {
   static const String id = 'workoutListScreen';
 
@@ -70,6 +69,15 @@ class WorkoutListScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: lightRed,
+        child: Icon(
+          Icons.directions_walk_sharp,
+          color: Colors.white,
+          size: 30,
+        ),
+        onPressed: () {},
       ),
     );
   }
