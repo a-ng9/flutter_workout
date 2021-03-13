@@ -25,50 +25,49 @@ class WorkoutListScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          children: [
-            WorkoutContainerL(title: "Full Body"),
-            WorkoutContainerL(title: "Upper Body"),
-            WorkoutContainerL(title: "Lower Body"),
-            //First row of boxes
-            Row(
-              children: [
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              WorkoutContainerL(title: "Full Body"),
+              WorkoutContainerL(title: "Upper Body"),
+              WorkoutContainerL(title: "Lower Body"),
+              //First row of boxes
+              Row(
+                children: [
 ////Abs Container (middle left container)
-                Expanded(
-                    child: WorkoutContainerS(
-                  title: "Abs",
-                  margin: const EdgeInsets.only(right: 5, top: 5),
-                )),
+                  Expanded(
+                      child: WorkoutContainerS(
+                    title: "Abs",
+                    margin: const EdgeInsets.only(right: 5, top: 5),
+                  )),
 ////Chest Container (middle left container)
-                Expanded(
-                    child: WorkoutContainerS(
-                  title: "Chest",
-                  margin: const EdgeInsets.only(left: 5, top: 5),
-                )),
-              ],
-            ),
-            //Last row of boxes
-            Row(
-              children: [
+                  Expanded(
+                      child: WorkoutContainerS(
+                    title: "Chest",
+                    margin: const EdgeInsets.only(left: 5, top: 5),
+                  )),
+                ],
+              ),
+              //Last row of boxes
+              Row(
+                children: [
 //Shoulder/Back Container (bottom Right container)
-                Expanded(
-                    child: WorkoutContainerS(
-                  title: "Shoulder/Back",
-                  margin: const EdgeInsets.only(right: 5, top: 10),
-                )),
+                  Expanded(
+                      child: WorkoutContainerS(
+                    title: "Shoulder/Back",
+                    margin: const EdgeInsets.only(right: 5, top: 10),
+                  )),
 //Legs Container (bottom Left container)
-                Expanded(
-                    child: WorkoutContainerS(
-                  title: "Legs",
-                  margin: const EdgeInsets.only(left: 5, top: 10),
-                )),
-              ],
-            ),
-          ],
+                  Expanded(
+                      child: WorkoutContainerS(
+                    title: "Legs",
+                    margin: const EdgeInsets.only(left: 5, top: 10),
+                  )),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: lightRed,
