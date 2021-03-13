@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_workout/const.dart';
-import 'package:flutter_workout/roundedButton.dart';
+import 'package:flutter_workout/screens/home_screen.dart';
+import 'package:flutter_workout/components/roundedButton.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String id = 'loginScreen';
@@ -12,6 +14,7 @@ class LoginScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Stack(
           children: [
+            ////Logo
             Center(
               child: Column(
                 children: [
@@ -25,6 +28,7 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
             ),
+            ////TextFields
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -39,10 +43,16 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
+            ////Login Button & Sign Up
             Column(
               children: [
                 Expanded(child: SizedBox()),
-                RoundedButton(colour: lightRed, text: 'Login', pressed: () {}),
+                RoundedButton(
+                    colour: lightRed,
+                    text: 'Login',
+                    pressed: () {
+                      Navigator.pushReplacementNamed(context, HomeScreen.id);
+                    }),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
