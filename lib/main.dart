@@ -13,6 +13,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(
+          textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Montserrat'),
+          appBarTheme: AppBarTheme(
+              textTheme: TextTheme(
+                  headline6: TextStyle(
+                      fontFamily: "Montserrat",
+                      fontSize: 50,
+                      fontWeight: FontWeight.w700))),
           accentColor: lightRed,
           scaffoldBackgroundColor: midNightBlue,
         ),
