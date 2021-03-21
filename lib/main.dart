@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           LoginScreen.id: (context) => LoginScreen(),
           HomeScreen.id: (context) => HomeScreen(),
           WorkoutListScreen.id: (context) => WorkoutListScreen(),
-          WorkoutDetail.id: (context) => WorkoutDetail(),
+          WorkoutDetailScreen.id: (context) => WorkoutDetailScreen(),
         });
   }
 }

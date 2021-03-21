@@ -4,14 +4,14 @@ import 'package:flutter_workout/components/roundedButton.dart';
 import 'package:flutter_workout/data/exercises.dart';
 import 'package:flutter_workout/const.dart';
 
-class WorkoutDetail extends StatefulWidget {
-  static const String id = 'WorkoutDetail';
+class WorkoutDetailScreen extends StatefulWidget {
+  static const String id = 'WorkoutDetailScreen';
 
   @override
-  _WorkoutDetailState createState() => _WorkoutDetailState();
+  _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
 }
 
-class _WorkoutDetailState extends State<WorkoutDetail> {
+class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   List<Exercises> workouts = [
     Exercises(titleExercise: 'Jumping Jacks', timeReps: '00:20'),
     Exercises(titleExercise: 'Push Up', timeReps: 'x10'),

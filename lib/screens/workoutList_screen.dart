@@ -59,7 +59,7 @@ class WorkoutListScreen extends StatelessWidget {
                     title: "Shoulder/Back",
                     margin: const EdgeInsets.only(right: 5, top: 10),
                     onPressed: () {
-                      Navigator.pushNamed(context, WorkoutDetail.id);
+                      Navigator.pushNamed(context, WorkoutDetailScreen.id);
                     },
                   )),
 //Legs Container (bottom Left container)
