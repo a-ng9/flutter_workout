@@ -31,6 +31,7 @@ class WorkoutListScreen extends StatelessWidget {
               WorkoutContainerL(title: "Full Body"),
               WorkoutContainerL(title: "Upper Body"),
               WorkoutContainerL(title: "Lower Body"),
+
               //First row of boxes
               Row(
                 children: [
