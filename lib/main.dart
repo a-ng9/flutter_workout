@@ -4,6 +4,7 @@ import 'package:flutter_workout/const.dart';
 
 import 'package:flutter_workout/login_screen.dart';
 import 'package:flutter_workout/screens/home_screen.dart';
+import 'package:flutter_workout/screens/workoutDetail_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
 
 void main() {
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           LoginScreen.id: (context) => LoginScreen(),
           HomeScreen.id: (context) => HomeScreen(),
           WorkoutListScreen.id: (context) => WorkoutListScreen(),
+          WorkoutDetail.id: (context) => WorkoutDetail(),
         });
   }
 }

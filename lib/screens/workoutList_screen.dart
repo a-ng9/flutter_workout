@@ -3,6 +3,7 @@ import 'package:flutter_workout/components/workoutContainersL.dart';
 import 'package:flutter_workout/components/workoutContainersS.dart';
 import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/login_screen.dart';
+import 'package:flutter_workout/screens/workoutDetail_screen.dart';
 
 class WorkoutListScreen extends StatelessWidget {
   static const String id = 'workoutListScreen';
@@ -52,17 +53,23 @@ class WorkoutListScreen extends StatelessWidget {
               //Last row of boxes
               Row(
                 children: [
-//Shoulder/Back Container (bottom Right container)
+                  //Shoulder/Back Container (bottom Right container)
                   Expanded(
                       child: WorkoutContainerS(
                     title: "Shoulder/Back",
                     margin: const EdgeInsets.only(right: 5, top: 10),
+                    onPressed: () {
+                      Navigator.pushNamed(context, WorkoutDetail.id);
+                    },
                   )),
 //Legs Container (bottom Left container)
                   Expanded(
                       child: WorkoutContainerS(
                     title: "Legs",
                     margin: const EdgeInsets.only(left: 5, top: 10),
+                    onPressed: () {
+                      print("Button Pressed");
+                    },
                   )),
                 ],
               ),
@@ -70,15 +77,15 @@ class WorkoutListScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: lightRed,
-        child: Icon(
-          Icons.directions_walk_sharp,
-          color: Colors.white,
-          size: 30,
-        ),
-        onPressed: () {},
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: lightRed,
+      //   child: Icon(
+      //     Icons.directions_walk_sharp,
+      //     color: Colors.white,
+      //     size: 30,
+      //   ),
+      //   onPressed: () {},
+      // ),
     );
   }
 }
