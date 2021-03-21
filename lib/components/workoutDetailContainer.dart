@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workout/const.dart';
 
-class DetailContainer extends StatelessWidget {
-  const DetailContainer({
+class WorkoutDetailContainer extends StatelessWidget {
+  const WorkoutDetailContainer({
     Key key,
     @required this.title,
     @required this.timerReps,
@@ -31,8 +31,8 @@ class DetailContainer extends StatelessWidget {
                 child: Row(
                   children: [
                     //Title
-                    Padding(
-                      padding: const EdgeInsets.all(7.0),
+                    Flexible(
+                      flex: 3,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -60,21 +60,20 @@ class DetailContainer extends StatelessWidget {
                       ),
                     ),
                     //Space between to push picture to the complete right
-                    Expanded(
-                      child: Container(
-                        height: double.infinity,
-                      ),
-                    ),
+                    Expanded(child: SizedBox()),
                     //Picture
-                    Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Image.asset('assets/images/Image.png'))
+                    Flexible(
+                      flex: 2,
+                      child: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Image.asset('assets/images/Image.png')),
+                    )
                   ],
                 ),
               ),
             ),
           ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.10),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.20),
         ],
       ),
     );
