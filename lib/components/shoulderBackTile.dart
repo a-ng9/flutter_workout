@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workout/const.dart';
 
-class WorkoutDetailContainer extends StatelessWidget {
-  const WorkoutDetailContainer({
-    Key key,
-    @required this.title,
-    @required this.timerReps,
-  }) : super(key: key);
+class ShoulderBackTile extends StatelessWidget {
+  final String workoutTitle;
+  final String timeNumReps;
 
-  final String title;
-  final String timerReps;
+  const ShoulderBackTile({
+    @required this.workoutTitle,
+    @required this.timeNumReps,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class WorkoutDetailContainer extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    //Title
+                    //Header
                     Flexible(
                       flex: 3,
                       child: Column(
@@ -40,7 +39,7 @@ class WorkoutDetailContainer extends StatelessWidget {
                           Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              title,
+                              workoutTitle,
                               style:
                                   TextStyle(color: midNightBlue, fontSize: 20),
                             ),
@@ -49,7 +48,7 @@ class WorkoutDetailContainer extends StatelessWidget {
                           Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              timerReps,
+                              timeNumReps,
                               style: TextStyle(
                                   color: midNightBlue,
                                   fontSize: 16,

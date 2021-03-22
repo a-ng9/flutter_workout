@@ -3,7 +3,7 @@ import 'package:flutter_workout/components/workoutContainersL.dart';
 import 'package:flutter_workout/components/workoutContainersS.dart';
 import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/login_screen.dart';
-import 'package:flutter_workout/screens/workoutDetail_screen.dart';
+import 'package:flutter_workout/screens/summaryShoulderBack_screen.dart';
 
 class WorkoutListScreen extends StatelessWidget {
   static const String id = 'workoutListScreen';
@@ -59,7 +59,8 @@ class WorkoutListScreen extends StatelessWidget {
                     title: "Shoulder/Back",
                     margin: const EdgeInsets.only(right: 5, top: 10),
                     onPressed: () {
-                      Navigator.pushNamed(context, WorkoutDetailScreen.id);
+                      Navigator.pushNamed(
+                          context, SummaryShoulderBackScreen.id);
                     },
                   )),
 //Legs Container (bottom Left container)
