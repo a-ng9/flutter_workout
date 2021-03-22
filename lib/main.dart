@@ -4,6 +4,7 @@ import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/login_screen.dart';
 import 'package:flutter_workout/screens/askBud_screen.dart';
 import 'package:flutter_workout/screens/home_screen.dart';
+import 'package:flutter_workout/screens/summaryLegs_screen.dart';
 import 'package:flutter_workout/screens/summaryShoulderBack_screen.dart';
 import 'package:flutter_workout/screens/summaryShoulder_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
           WorkoutListScreen.id: (context) => WorkoutListScreen(),
           SummaryShoulderBackScreen.id: (context) =>
               SummaryShoulderBackScreen(),
+          SummaryLegsScreen.id: (context) => SummaryLegsScreen(),
           AskBuddyScreen.id: (context) => AskBuddyScreen(),
         });
   }
