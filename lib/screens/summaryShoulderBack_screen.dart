@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/components/roundedButton.dart';
-import 'package:flutter_workout/components/shoulderBackTile.dart';
+import 'package:flutter_workout/components/summaryTile.dart';
 import 'package:flutter_workout/screens/askBud_screen.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -52,7 +52,7 @@ class SummaryShoulderBackScreen extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: snapshot.data.docs.length,
                       itemBuilder: (context, index) {
-                        return ShoulderBackTile(
+                        return SummaryTile(
                             workoutTitle: snapshot.data.docs[index]['title'],
                             timeNumReps: snapshot.data.docs[index]['timereps']);
                       }),

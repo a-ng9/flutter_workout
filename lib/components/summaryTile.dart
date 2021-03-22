@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workout/const.dart';
 
-class ShoulderBackTile extends StatelessWidget {
+class SummaryTile extends StatelessWidget {
   final String workoutTitle;
   final String timeNumReps;
 
-  const ShoulderBackTile({
+  const SummaryTile({
     @required this.workoutTitle,
     @required this.timeNumReps,
   });
