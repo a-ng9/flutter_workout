@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_workout/const.dart';
 
 import 'package:flutter_workout/login_screen.dart';
+import 'package:flutter_workout/screens/askBud_screen.dart';
 import 'package:flutter_workout/screens/home_screen.dart';
 import 'package:flutter_workout/screens/workoutDetail_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
           HomeScreen.id: (context) => HomeScreen(),
           WorkoutListScreen.id: (context) => WorkoutListScreen(),
           WorkoutDetailScreen.id: (context) => WorkoutDetailScreen(),
+          AskBuddyScreen.id: (context) => AskBuddyScreen(),
         });
   }
 }
