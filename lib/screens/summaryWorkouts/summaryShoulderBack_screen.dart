@@ -60,17 +60,14 @@ class SummaryShoulderBackScreen extends StatelessWidget {
                       }),
                 ),
                 //Start Button
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: RoundedButton(
-                        colour: lightRed,
-                        text: "START",
-                        pressed: () {
-                          Navigator.pushNamed(context, AskBuddyScreen.id);
-                        }),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: RoundedButton(
+                      colour: lightRed,
+                      text: "START",
+                      pressed: () {
+                        Navigator.pushNamed(context, AskBuddyScreen.id);
+                      }),
                 ),
               ],
             );
