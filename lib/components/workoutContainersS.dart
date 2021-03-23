@@ -14,26 +14,30 @@ class WorkoutContainerS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        height: 150,
-        margin: margin,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(9))),
-        //Container content
-        child: Column(
-          children: [
-            //Text
-            Padding(
-              padding: const EdgeInsets.all(7.0),
-              child:
-                  Text(title, style: TextStyle(color: darkBlack, fontSize: 23)),
+    return Padding(
+      padding: margin,
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(9)),
+        child: InkWell(
+          splashColor: lightRed,
+          onTap: onPressed,
+          child: Container(
+            height: 150,
+            //Container content
+            child: Column(
+              children: [
+                //Text
+                Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: Text(title,
+                      style: TextStyle(color: darkBlack, fontSize: 23)),
+                ),
+                //Picture
+                Image.asset("assets/images/Image.png")
+              ],
             ),
-            //Picture
-            Image.asset("assets/images/Image.png")
-          ],
+          ),
         ),
       ),
     );

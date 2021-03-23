@@ -12,6 +12,8 @@ class SummaryShoulderBackScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // FirebaseFirestore.instance.settings = Settings(persistenceEnabled: false);
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: midNightBlue, elevation: 0, centerTitle: false),

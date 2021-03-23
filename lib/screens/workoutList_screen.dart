@@ -30,9 +30,24 @@ class WorkoutListScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              WorkoutContainerL(title: "Full Body"),
-              WorkoutContainerL(title: "Upper Body"),
-              WorkoutContainerL(title: "Lower Body"),
+              WorkoutContainerL(
+                title: "Full Body",
+                onPress: () {
+                  print("FullBody container pressed");
+                },
+              ),
+              WorkoutContainerL(
+                title: "Upper Body",
+                onPress: () {
+                  print("UpperBody container pressed");
+                },
+              ),
+              WorkoutContainerL(
+                title: "Lower Body",
+                onPress: () {
+                  print("LowerBody container pressed");
+                },
+              ),
 
               //First row of boxes
               Row(
@@ -42,13 +57,18 @@ class WorkoutListScreen extends StatelessWidget {
                       child: WorkoutContainerS(
                     title: "Abs",
                     margin: const EdgeInsets.only(right: 5, top: 5),
+                    onPressed: () {
+                      print('Abs container pressed');
+                    },
                   )),
 ////Chest Container (middle left container)
                   Expanded(
                       child: WorkoutContainerS(
-                    title: "Chest",
-                    margin: const EdgeInsets.only(left: 5, top: 5),
-                  )),
+                          title: "Chest",
+                          margin: const EdgeInsets.only(left: 5, top: 5),
+                          onPressed: () {
+                            print('Chest container pressed');
+                          })),
                 ],
               ),
               //Last row of boxes
@@ -58,18 +78,21 @@ class WorkoutListScreen extends StatelessWidget {
                   Expanded(
                       child: WorkoutContainerS(
                     title: "Shoulder/Back",
-                    margin: const EdgeInsets.only(right: 5, top: 10),
+                    margin:
+                        const EdgeInsets.only(right: 5, top: 10, bottom: 10),
                     onPressed: () {
+                      print("Shoulder/Back container pressed");
                       Navigator.pushNamed(
                           context, SummaryShoulderBackScreen.id);
                     },
                   )),
-//Legs Container (bottom Left container)
+                  //Legs Container (bottom Left container)
                   Expanded(
                       child: WorkoutContainerS(
                     title: "Legs",
-                    margin: const EdgeInsets.only(left: 5, top: 10),
+                    margin: const EdgeInsets.only(left: 5, top: 10, bottom: 10),
                     onPressed: () {
+                      print("Legs container pressed");
                       Navigator.pushNamed(context, SummaryLegsScreen.id);
                     },
                   )),
