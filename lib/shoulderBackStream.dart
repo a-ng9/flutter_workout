@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_workout/screens/summaryShoulder_screen.dart';
+import 'package:flutter_workout/screens/summaryWorkouts/summaryShoulder_screen.dart';
 
 class ShoulderStream extends StatefulWidget {
   final String type;

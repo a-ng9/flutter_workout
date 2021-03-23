@@ -4,9 +4,14 @@ import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/login_screen.dart';
 import 'package:flutter_workout/screens/askBud_screen.dart';
 import 'package:flutter_workout/screens/home_screen.dart';
-import 'package:flutter_workout/screens/summaryLegs_screen.dart';
-import 'package:flutter_workout/screens/summaryShoulderBack_screen.dart';
-import 'package:flutter_workout/screens/summaryShoulder_screen.dart';
+import 'package:flutter_workout/screens/summaryWorkouts/summaryAbs_screen.dart';
+import 'package:flutter_workout/screens/summaryWorkouts/summaryChest_screen.dart';
+import 'package:flutter_workout/screens/summaryWorkouts/summaryFullBody_screen.dart';
+import 'package:flutter_workout/screens/summaryWorkouts/summaryLegs_screen.dart';
+import 'package:flutter_workout/screens/summaryWorkouts/summaryLowerBody_screen.dart';
+import 'package:flutter_workout/screens/summaryWorkouts/summaryShoulderBack_screen.dart';
+import 'package:flutter_workout/screens/summaryWorkouts/summaryUpperBody_screen.dart';
+//import 'package:flutter_workout/screens/summaryWorkouts/summaryShoulder_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -38,9 +43,14 @@ class MyApp extends StatelessWidget {
           LoginScreen.id: (context) => LoginScreen(),
           HomeScreen.id: (context) => HomeScreen(),
           WorkoutListScreen.id: (context) => WorkoutListScreen(),
+          SummaryFullScreen.id: (context) => SummaryFullScreen(),
+          SummaryUpperScreen.id: (context) => SummaryUpperScreen(),
+          SummaryLowerScreen.id: (context) => SummaryLowerScreen(),
+          SummaryChestScreen.id: (context) => SummaryChestScreen(),
+          SummaryAbsScreen.id: (context) => SummaryAbsScreen(),
+          SummaryLegsScreen.id: (context) => SummaryLegsScreen(),
           SummaryShoulderBackScreen.id: (context) =>
               SummaryShoulderBackScreen(),
-          SummaryLegsScreen.id: (context) => SummaryLegsScreen(),
           AskBuddyScreen.id: (context) => AskBuddyScreen(),
         });
   }
