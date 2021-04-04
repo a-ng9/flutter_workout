@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_workout/components/workoutContainersL.dart';
 import 'package:flutter_workout/components/workoutContainersS.dart';
 import 'package:flutter_workout/const.dart';
-import 'package:flutter_workout/login_screen.dart';
+// import 'package:flutter_workout/login_screen.dart';
 import 'package:flutter_workout/screens/summaryWorkouts/summaryAbs_screen.dart';
 import 'package:flutter_workout/screens/summaryWorkouts/summaryChest_screen.dart';
 import 'package:flutter_workout/screens/summaryWorkouts/summaryFullBody_screen.dart';
@@ -22,13 +22,13 @@ class WorkoutListScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: false,
         title: Text("Workout"),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, LoginScreen.id);
-              })
-        ],
+        // actions: [
+        //   IconButton(
+        //       icon: Icon(Icons.arrow_back_ios),
+        //       onPressed: () {
+        //         Navigator.pushReplacementNamed(context, LoginScreen.id);
+        //       })
+        // ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
