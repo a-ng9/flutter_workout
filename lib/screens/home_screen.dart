@@ -29,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedIconTheme: IconThemeData(size: 30),
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_sharp),
+            // icon: Icon(Icons.bar_chart_sharp),
+            icon: Icon(Icons.account_circle_outlined),
             label: 'Report',
           ),
           BottomNavigationBarItem(

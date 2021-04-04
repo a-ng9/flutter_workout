@@ -39,17 +39,6 @@ class MyApp extends StatelessWidget {
       screenRoute = LoginScreen.id;
       print("User not logged in");
     }
-    // FirebaseAuth.instance.authStateChanges().listen((User user) {
-    //   if (user == null) {
-    //     print('User is currently signed out!');
-    //     screenRoute = LoginScreen.id;
-    //   } else {
-    //     print('User is signed in!');
-    //     print(user.email);
-    //     screenRoute = HomeScreen.id;
-    //   }
-    // });
-
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(
