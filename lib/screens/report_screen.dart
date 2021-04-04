@@ -5,13 +5,35 @@ import 'package:flutter_workout/components/reportContainer.dart';
 import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/login_screen.dart';
 
-class ReportScreen extends StatelessWidget {
+class ReportScreen extends StatefulWidget {
   static const String id = 'reportScreen';
 
   @override
-  Widget build(BuildContext context) {
-    final users = FirebaseAuth.instance.currentUser;
+  _ReportScreenState createState() => _ReportScreenState();
+}
 
+class _ReportScreenState extends State<ReportScreen> {
+  String userName;
+  _currentUser() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    if (auth.currentUser != null) {
+      setState(() {
+        userName = auth.currentUser.displayName.toString();
+      });
+      print(auth.currentUser.displayName);
+    }
+  }
+
+  @override
+  void initState() {
+    _currentUser();
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: midNightBlue,
@@ -33,25 +55,26 @@ class ReportScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Today",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
-            ),
-            Row(
-              children: [
-                ReportContainer(
-                  margin: const EdgeInsets.only(right: 7.0),
-                  time: "30mins",
-                  label: "Training Time",
-                ),
-                ReportContainer(
-                  margin: const EdgeInsets.only(left: 7.0),
-                  time: "2 times",
-                  label: "Number of Exercise",
-                ),
-              ],
-            ),
-            Text(users.displayName),
+            Text("$userName"),
+
+            // Text(
+            //   "Today",
+            //   style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+            // ),
+            // Row(
+            //   children: [
+            //     ReportContainer(
+            //       margin: const EdgeInsets.only(right: 7.0),
+            //       time: "30mins",
+            //       label: "Training Time",
+            //     ),
+            //     ReportContainer(
+            //       margin: const EdgeInsets.only(left: 7.0),
+            //       time: "2 times",
+            //       label: "Number of Exercise",
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
