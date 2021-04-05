@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_workout/screens/signUp_screen.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/screens/home_screen.dart';
-import 'package:flutter_workout/components/roundedButton.dart';
+import 'package:flutter_workout/components/roundedButtonLogin.dart';
+import 'package:flutter_workout/screens/signUp_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'loginScreen';
@@ -75,8 +75,8 @@ class _LoginScreenState extends State<LoginScreen> {
           opacity: 0.01,
           inAsyncCall: showSpinner,
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //Logo
               Flexible(
                   flex: 3,
                   fit: FlexFit.tight,
@@ -84,6 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 40.0),
                     child: Image.asset("assets/images/Logo.png", scale: 2.5),
                   )),
+              //TextField Inputs
               Flexible(
                 flex: 2,
                 fit: FlexFit.tight,
@@ -117,17 +118,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-              //Expanded(child: SizedBox()),
+              //Button & Sign Up
               Column(
                 children: [
-                  RoundedButton(
+                  //Button
+                  RoundedButtonLogin(
                       colour: lightRed,
                       text: 'Login',
                       pressed: () {
                         loginAction();
-                        // Navigator.pushNamedAndRemoveUntil(
-                        //     context, HomeScreen.id, (route) => false);
                       }),
+                  //Sign up Text
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
