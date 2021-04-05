@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/components/buddyTile.dart';
 import 'package:flutter_workout/components/roundedButton.dart';
-import 'package:flutter_workout/const.dart';
+import 'package:flutter_workout/screens/workingOut_screen.dart';
 
 class AskBuddyScreen extends StatelessWidget {
   static const String id = "AskBuddy_Screen";
@@ -28,7 +30,7 @@ class AskBuddyScreen extends StatelessWidget {
                 colour: lightRed,
                 text: "START",
                 pressed: () {
-                  //     Navigator.pushNamed(context, AskBuddyScreen.id);
+                  Navigator.pushNamed(context, WorkingOutScreen.id);
                 }),
           ),
         ],
