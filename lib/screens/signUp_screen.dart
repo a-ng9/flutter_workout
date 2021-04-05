@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_workout/components/roundedButton.dart';
+import 'package:flutter_workout/components/roundedButtonLogin.dart';
 import 'package:flutter_workout/const.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_workout/login_screen.dart';
+// import 'package:flutter_workout/login_screen.dart';
 import 'package:flutter_workout/screens/home_screen.dart';
 // import 'package:flutter_workout/service/database.dart';
 
@@ -17,6 +17,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  Future signUpAction() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
+
+      User updateUser = FirebaseAuth.instance.currentUser;
+      await updateUser.updateProfile(displayName: nameController.text);
+
+      print('Name is: ${userCredential.user.displayName}');
+      print('Email is: ${userCredential.user.email}');
+      //
+      //
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Expanded(child: SizedBox()),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: RoundedButton(
+                  child: RoundedButtonLogin(
                       colour: lightRed,
                       text: 'Sign Up',
                       pressed: () async {
@@ -93,29 +117,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
-  }
-
-  Future signUpAction() async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text);
-
-      User updateUser = FirebaseAuth.instance.currentUser;
-      await updateUser.updateProfile(displayName: nameController.text);
-
-      print('Name is: ${userCredential.user.displayName}');
-      print('Email is: ${userCredential.user.email}');
-      //
-      //
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 }
