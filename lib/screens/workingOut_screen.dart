@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_workout/const.dart';
+import 'package:flutter_workout/screens/finish_screen.dart';
 
 class WorkingOutScreen extends StatelessWidget {
   static const String id = "WorkingOut Screen";
@@ -87,7 +88,10 @@ class WorkingOutScreen extends StatelessWidget {
                         Icons.arrow_forward_ios_sharp,
                         color: lightRed,
                       ),
-                      onPressed: () {}),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, FinishScreen.id);
+                      }),
                 ],
               ),
             )
