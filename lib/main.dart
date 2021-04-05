@@ -12,6 +12,7 @@ import 'package:flutter_workout/screens/summaryWorkouts/summaryLegs_screen.dart'
 import 'package:flutter_workout/screens/summaryWorkouts/summaryLowerBody_screen.dart';
 import 'package:flutter_workout/screens/summaryWorkouts/summaryShoulderBack_screen.dart';
 import 'package:flutter_workout/screens/summaryWorkouts/summaryUpperBody_screen.dart';
+import 'package:flutter_workout/screens/workingOut_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
           SummaryShoulderBackScreen.id: (context) =>
               SummaryShoulderBackScreen(),
           AskBuddyScreen.id: (context) => AskBuddyScreen(),
+          WorkingOutScreen.id: (context) => WorkingOutScreen(),
         });
   }
 }
