@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_workout/const.dart';
-import 'package:flutter_workout/login_screen.dart';
+import 'package:flutter_workout/screens/logInUp_screen/login_screen.dart';
 import 'package:flutter_workout/screens/finish_screen.dart';
-import 'package:flutter_workout/screens/signUp_screen.dart';
+import 'package:flutter_workout/screens/logInUp_screen/signUp_screen.dart';
 import 'package:flutter_workout/screens/askBud_screen.dart';
 import 'package:flutter_workout/screens/home_screen.dart';
 import 'package:flutter_workout/screens/summaryWorkouts/summaryAbs_screen.dart';
@@ -17,7 +17,6 @@ import 'package:flutter_workout/screens/workingOut_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-//import 'package:flutter_workout/service/authentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
 
     if (firebaseUser != null) {
       screenRoute = HomeScreen.id;
-      print(firebaseUser.email);
+      // print('email is = ${firebaseUser.email}');
     } else {
       screenRoute = LoginScreen.id;
       print("User not logged in");
