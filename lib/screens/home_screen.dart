@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_workout/screens/friends_screen.dart';
+import 'package:flutter_workout/screens/friends_screens/friends_screen.dart';
 import 'package:flutter_workout/screens/report_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
 

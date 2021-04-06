@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_workout/const.dart';
+import 'package:flutter_workout/screens/friends_screens/searchFriend_screen.dart';
 import 'package:flutter_workout/screens/logInUp_screen/login_screen.dart';
 import 'package:flutter_workout/screens/finish_screen.dart';
 import 'package:flutter_workout/screens/logInUp_screen/signUp_screen.dart';
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
           AskBuddyScreen.id: (context) => AskBuddyScreen(),
           WorkingOutScreen.id: (context) => WorkingOutScreen(),
           FinishScreen.id: (context) => FinishScreen(),
+          SearchFriend.id: (context) => SearchFriend(),
         });
   }
 }

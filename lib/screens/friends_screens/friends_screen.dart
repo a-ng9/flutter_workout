@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_workout/components/runnerUp.dart';
 
 import 'package:flutter_workout/const.dart';
+import 'package:flutter_workout/screens/friends_screens/searchFriend_screen.dart';
 
 class FriendsScreen extends StatelessWidget {
   static const String id = 'friendScreen';
@@ -14,7 +15,13 @@ class FriendsScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: false,
         title: Text("Friends"),
-        actions: [IconButton(icon: Icon(Icons.person), onPressed: null)],
+        actions: [
+          IconButton(
+              icon: Icon(Icons.person_add),
+              onPressed: () {
+                Navigator.pushNamed(context, SearchFriend.id);
+              })
+        ],
       ),
       body: Column(
         children: [

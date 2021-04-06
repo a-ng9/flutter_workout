@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_workout/model/user.dart';
 
+CollectionReference usersRef = FirebaseFirestore.instance.collection("Users");
+
 Future<void> userSetup(String displayName, username, email) async {
-  CollectionReference usersRef = FirebaseFirestore.instance.collection("Users");
   FirebaseAuth auth = FirebaseAuth.instance;
 
   UserModel currentUser;
