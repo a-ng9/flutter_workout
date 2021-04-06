@@ -5,7 +5,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/screens/home_screen.dart';
 import 'package:flutter_workout/components/roundedButtonLogin.dart';
-import 'package:flutter_workout/screens/signUp_screen.dart';
+import 'package:flutter_workout/screens/logInUp_screen/signUp_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'loginScreen';
@@ -96,9 +96,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: emailTextFieldDeco,
                       onChanged: (value) {
                         setState(() {
-                          passwordTextFieldDeco = inputTextFieldDefault;
+                          emailTextFieldDeco = inputTextFieldDefault;
                         });
                       },
+                      validator: (value) => !value.contains('@')
+                          ? 'please enter a valid email'
+                          : null,
                     ),
                     SizedBox(height: 8.0),
                     //Password TextField
@@ -114,6 +117,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       color: Colors.white));
                         });
                       },
+                      validator: (value) => value.length > 6
+                          ? 'Must be atleast 6 characters'
+                          : null,
                     ),
                   ],
                 ),

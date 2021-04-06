@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flutter_workout/components/reportContainer.dart';
+// import 'package:flutter_workout/components/reportContainer.dart';
 import 'package:flutter_workout/const.dart';
-import 'package:flutter_workout/login_screen.dart';
+import 'package:flutter_workout/screens/logInUp_screen/login_screen.dart';
 
 class ReportScreen extends StatefulWidget {
   static const String id = 'reportScreen';
@@ -13,15 +13,16 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
-  String userName;
+  String displayUserName;
+  String username;
   _currentUser() async {
     FirebaseAuth auth = FirebaseAuth.instance;
 
     if (auth.currentUser != null) {
       setState(() {
-        userName = auth.currentUser.displayName.toString();
+        displayUserName = auth.currentUser.displayName.toString();
       });
-      print(auth.currentUser.displayName);
+      print('display Name = ${auth.currentUser.displayName}');
     }
   }
 
@@ -55,7 +56,7 @@ class _ReportScreenState extends State<ReportScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("$userName"),
+            Text("$displayUserName"),
 
             // Text(
             //   "Today",
