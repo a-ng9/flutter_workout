@@ -23,7 +23,7 @@ class _SearchFriendState extends State<SearchFriend> {
           shrinkWrap: true,
           children: [
             Text(
-              "Find Users with the aboce search bar",
+              "Find Friends from their Username",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: orientation == Orientation.portrait
@@ -77,9 +77,7 @@ class _SearchFriendState extends State<SearchFriend> {
           backgroundColor: midNightBlue,
           elevation: 0,
           centerTitle: false,
-          title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          ),
+          title: Text('Add'),
           actions: [
             IconButton(
                 icon: Icon(Icons.arrow_back_ios_rounded),
@@ -90,6 +88,8 @@ class _SearchFriendState extends State<SearchFriend> {
         ),
         body: Column(
           children: [
+            SizedBox(height: 20),
+            //search bar
             TextFormField(
               controller: searchController,
               decoration: InputDecoration(
@@ -103,6 +103,7 @@ class _SearchFriendState extends State<SearchFriend> {
               ),
               onFieldSubmitted: handleSearch,
             ),
+            //results lists
             Expanded(
               child: searchResultsFuture == null
                   ? buildNoContent()
