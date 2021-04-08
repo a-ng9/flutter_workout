@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_workout/const.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_workout/model/user.dart';
-import 'package:flutter_workout/screens/friends_screens/friends_screen.dart';
 import 'package:flutter_workout/service/database.dart';
 
 class SearchFriend extends StatefulWidget {
@@ -14,6 +13,12 @@ class SearchFriend extends StatefulWidget {
 
 class _SearchFriendState extends State<SearchFriend> {
   TextEditingController searchController = TextEditingController();
+
+  String currentUserId = currentUser?.uid;
+  Widget defaultIcon;
+  bool isFollowing;
+
+  handleUnfollowUser() {}
 
   buildNoContent() {
     final Orientation orientation = MediaQuery.of(context).orientation;
@@ -43,10 +48,12 @@ class _SearchFriendState extends State<SearchFriend> {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-          List<UserRsult> searchResults = [];
+          List<UserRsultTile> searchResults = [];
           snapshot.data.docs.forEach((doc) {
             UserModel user = UserModel.fromDocument(doc);
-            UserRsult searchResult = UserRsult(user);
+            UserRsultTile searchResult = UserRsultTile(
+              user: user,
+            );
             searchResults.add(searchResult);
           });
           return ListView(
@@ -70,54 +77,60 @@ class _SearchFriendState extends State<SearchFriend> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: midNightBlue,
-          elevation: 0,
-          centerTitle: false,
-          title: Text('Add'),
-          actions: [
-            IconButton(
-                icon: Icon(Icons.arrow_back_ios_rounded),
-                onPressed: () {
-                  Navigator.pop(context);
-                })
-          ],
-        ),
-        body: Column(
-          children: [
-            SizedBox(height: 20),
-            //search bar
-            TextFormField(
-              controller: searchController,
-              decoration: InputDecoration(
-                hintText: "Search Username...",
-                filled: true,
-                prefixIcon: Icon(Icons.account_box_rounded, size: 28),
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
-                  onPressed: clearSearch,
-                ),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: midNightBlue,
+        elevation: 0,
+        centerTitle: false,
+        title: Text('Add'),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.arrow_back_ios_rounded),
+              onPressed: () {
+                Navigator.pop(context);
+              })
+        ],
+      ),
+      body: Column(
+        children: [
+          SizedBox(height: 20),
+          //search bar
+          TextFormField(
+            controller: searchController,
+            decoration: InputDecoration(
+              hintText: "Search Username...",
+              filled: true,
+              prefixIcon: Icon(Icons.account_box_rounded, size: 28),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.clear),
+                onPressed: clearSearch,
               ),
-              onFieldSubmitted: handleSearch,
             ),
-            //results lists
-            Expanded(
-              child: searchResultsFuture == null
-                  ? buildNoContent()
-                  : buildSearchResults(),
-            ),
-          ],
-        ));
+            onFieldSubmitted: handleSearch,
+          ),
+          //results lists
+          Expanded(
+            child: searchResultsFuture == null
+                ? buildNoContent()
+                : buildSearchResults(),
+          ),
+        ],
+      ),
+    );
   }
 }
 
-class UserRsult extends StatelessWidget {
+class UserRsultTile extends StatelessWidget {
   final UserModel user;
 
-  const UserRsult(this.user);
+  const UserRsultTile({this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -125,23 +138,39 @@ class UserRsult extends StatelessWidget {
       color: midNightBlue,
       child: Column(
         children: [
-          GestureDetector(
-            onTap: () {
-              print("tapped");
-            },
-            child: ListTile(
-              tileColor: darkBlack,
-              leading: Icon(Icons.account_circle_rounded, size: 45),
-              title: Text(
-                user.displayName,
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
-              subtitle: Text(user.username),
+          ListTile(
+            tileColor: darkBlack,
+            leading: Icon(Icons.account_circle_rounded, size: 45),
+            title: Text(
+              user.displayName,
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            subtitle: Text(user.username),
+            trailing: FollowButton(
+              icon: Icon(Icons.ac_unit_outlined),
+              onTap: () {
+                print("Button Pressed");
+              },
             ),
           ),
           Divider(height: 5.0, color: Colors.white)
         ],
       ),
+    );
+  }
+}
+
+class FollowButton extends StatelessWidget {
+  final Function onTap;
+  final Icon icon;
+
+  const FollowButton({this.onTap, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: icon,
+      onPressed: onTap,
     );
   }
 }
