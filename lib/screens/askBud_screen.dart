@@ -37,7 +37,7 @@ class AskBuddyScreen extends StatelessWidget {
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading");
+                    return Center(child: CircularProgressIndicator());
                   }
 
                   return ListView(
@@ -48,9 +48,7 @@ class AskBuddyScreen extends StatelessWidget {
                           ? SizedBox.shrink()
                           : BuddyTile(
                               nameTitle: document.data()['display_name'],
-                              colour: document.data()['presence'] == true
-                                  ? Colors.green
-                                  : Colors.grey[400]);
+                            );
                     }).toList(),
                   );
                 }),

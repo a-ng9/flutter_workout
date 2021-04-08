@@ -14,7 +14,7 @@ class BuddyTile extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
             width: MediaQuery.of(context).size.width * 0.80,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -22,8 +22,8 @@ class BuddyTile extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.circle, size: 12, color: colour),
-                SizedBox(width: 10),
+                // Icon(Icons.circle, size: 12, color: colour),
+                // SizedBox(width: 10),
                 Text(nameTitle,
                     style: TextStyle(
                       color: darkBlack,

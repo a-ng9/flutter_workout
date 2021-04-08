@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workout/components/runnerUp.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter_workout/const.dart';
+import 'package:flutter_workout/helpers/user_status.dart';
 import 'package:flutter_workout/screens/friends_screens/searchFriend_screen.dart';
 
 class FriendsScreen extends StatelessWidget {
@@ -48,9 +50,45 @@ class FriendsScreen extends StatelessWidget {
             ),
           ),
           ////Runner Ups
-          RunnerUp(rank: 2, name: "John Doe", score: 1000),
-          RunnerUp(rank: 3, name: "James Smith", score: 800),
-          RunnerUp(rank: 4, name: "Peter Miller", score: 500),
+          // RunnerUp(rank: 2, name: "John Doe", score: 1000),
+          // RunnerUp(rank: 3, name: "James Smith", score: 800),
+          // RunnerUp(
+          //     status: "online",
+          //     colour: Colors.green,
+          //     name: "Peter Miller",
+          //     score: 500),
+          Expanded(
+            child: StreamBuilder(
+                stream: users.snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  return ListView(
+                    children:
+                        snapshot.data.docs.map((DocumentSnapshot document) {
+                      return auth.currentUser.uid.toString() ==
+                              document.data()['uid']
+                          ? SizedBox.shrink()
+                          : RunnerUp(
+                              status: document.data()['presence'] == true
+                                  ? 'Online'
+                                  : 'Offline',
+                              colour: document.data()['presence'] == true
+                                  ? Colors.green
+                                  : Colors.grey[400],
+                              name: document.data()['display_name'],
+                              score: 500);
+                    }).toList(),
+                  );
+                }),
+          ),
         ],
       ),
     );
