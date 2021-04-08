@@ -40,11 +40,28 @@ class WorkingOutScreen extends StatelessWidget {
             //Exercise Title
             Expanded(
               flex: 2,
-              child: Center(
-                child: Text(
-                  "Jumping Jacks",
-                  style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.w500),
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.circle,
+                          size: 12, color: Colors.greenAccent[400]),
+                      SizedBox(width: 5),
+                      Text(
+                        "Name",
+                        style: TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    "Jumping Jacks",
+                    style:
+                        TextStyle(fontSize: 40.0, fontWeight: FontWeight.w500),
+                  ),
+                ],
               ),
             ),
             //Time or reps info

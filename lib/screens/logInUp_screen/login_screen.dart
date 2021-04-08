@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_workout/helpers/user_status.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import 'package:flutter_workout/const.dart';
@@ -36,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       if (userCredential != null) {
         Navigator.pushReplacementNamed(context, HomeScreen.id);
+        UserStatus.makeUserOnline(auth.currentUser.uid.toString());
       }
     } on FirebaseAuthException catch (e) {
       setState(() {

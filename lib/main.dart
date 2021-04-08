@@ -19,6 +19,8 @@ import 'package:flutter_workout/screens/workoutList_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter_workout/service/database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,8 +29,86 @@ void main() async {
 }
 
 FirebaseAuth auth = FirebaseAuth.instance;
+CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  String uid;
+
+  Future<void> getUserid() async {
+    setState(() {
+      try {
+        uid = auth.currentUser.uid.toString();
+      } catch (err) {
+        print(err);
+      }
+    });
+  }
+
+  Future<void> makeUserOnline() {
+    return users
+        .doc(uid)
+        .update({'presence': true})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  Future<void> makeUserOffline() {
+    return users
+        .doc(uid)
+        .update({'presence': false})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    getUserid();
+    if (uid != null) {
+      makeUserOnline();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    getUserid();
+    print(state);
+    // final isBackground = state == AppLifecycleState.paused;
+
+    if (state == AppLifecycleState.paused) {
+      if (uid != null) {
+        makeUserOffline();
+      }
+    } else if (state == AppLifecycleState.resumed) {
+      if (uid != null) {
+        makeUserOnline();
+      }
+    } else if (state == AppLifecycleState.inactive) {
+      if (uid != null) {
+        makeUserOffline();
+      }
+    }
+
+    // if (isBackground) {
+    //   if (uid != null) {
+    //     makeUserOffline();
+    //   }
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     User firebaseUser = FirebaseAuth.instance.currentUser;
@@ -36,7 +116,6 @@ class MyApp extends StatelessWidget {
 
     if (firebaseUser != null) {
       screenRoute = HomeScreen.id;
-      // print('email is = ${firebaseUser.email}');
     } else {
       screenRoute = LoginScreen.id;
       print("User not logged in");

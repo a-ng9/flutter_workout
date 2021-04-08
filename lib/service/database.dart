@@ -3,11 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_workout/model/user.dart';
 
 CollectionReference usersRef = FirebaseFirestore.instance.collection("Users");
+CollectionReference followingRef =
+    FirebaseFirestore.instance.collection("following");
+UserModel currentUser;
 
-Future<void> userSetup(String displayName, username, email) async {
+userSetup(String displayName, username, email) async {
   FirebaseAuth auth = FirebaseAuth.instance;
-
-  UserModel currentUser;
   String uid = auth.currentUser.uid.toString();
   DocumentSnapshot doc = await usersRef.doc(usersRef.id).get();
 
@@ -17,14 +18,15 @@ Future<void> userSetup(String displayName, username, email) async {
     'username': username,
     'email': email,
     'uid': uid,
+    'presence': true,
   });
 
   doc = await usersRef.doc(uid).get();
 
   currentUser = UserModel.fromDocument(doc);
 
-  print('CurrentUser: $currentUser');
-  print('displayName: ${currentUser.displayName}');
+  // print('CurrentUser: $currentUser');
+  // print('displayName: ${currentUser.displayName}');
 
-  return currentUser;
+  currentUser = UserModel.fromDocument(doc);
 }

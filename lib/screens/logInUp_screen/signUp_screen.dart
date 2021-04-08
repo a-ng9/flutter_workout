@@ -28,6 +28,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   InputDecoration emailTextFieldDeco;
   InputDecoration passwordTextFieldDeco;
   CollectionReference users = FirebaseFirestore.instance.collection("Users");
+  Future<void> makeUserOnline(uid) {
+    return users
+        .doc(uid)
+        .update({'presence': true})
+        .then((value) => print("User Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
 
   Future signUpAction() async {
     setState(() {
@@ -43,9 +50,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       await updateUser.updateProfile(displayName: nameController.text);
       userSetup(
           nameController.text, usernameController.text, emailController.text);
-
-      // print('Name is: ${userCredential.user.displayName}');
-      // print('Email is: ${userCredential.user.email}');
 
       if (userCredential != null) {
         Navigator.pushNamedAndRemoveUntil(

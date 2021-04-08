@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_workout/screens/friends_screens/friends_screen.dart';
 import 'package:flutter_workout/screens/report_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'homeScreen';
@@ -12,12 +13,33 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedScreen = 1;
+  // String _uid;
+  // FirebaseAuth _auth = FirebaseAuth.instance;
 
   final _screenOptions = [
     ReportScreen(),
     WorkoutListScreen(),
     FriendsScreen(),
   ];
+
+  // Future<void> getUserid() async {
+  //   setState(() {
+  //     try {
+  //       _uid = _auth.currentUser.uid.toString();
+  //     } catch (err) {
+  //       print(err);
+  //     }
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  //   getUserid().then((_) {
+  //     UserStatus.makeUserOnline(_uid);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
