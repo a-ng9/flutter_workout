@@ -83,12 +83,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   flex: 3,
                   fit: FlexFit.tight,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40.0),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: Image.asset("assets/images/Logo.png", scale: 2.5),
                   )),
               //TextField Inputs
               Flexible(
-                flex: 2,
+                flex: 3,
                 fit: FlexFit.tight,
                 child: Column(
                   children: [
@@ -123,36 +123,46 @@ class _LoginScreenState extends State<LoginScreen> {
                           ? 'Must be atleast 6 characters'
                           : null,
                     ),
+                    // Expanded(child: SizedBox()),
                   ],
                 ),
               ),
-              //Button & Sign Up
-              Column(
-                children: [
-                  //Button
-                  RoundedButtonLogin(
-                      colour: lightRed,
-                      text: 'Login',
-                      pressed: () {
-                        loginAction();
-                      }),
-                  //Sign up Text
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Don't have an account?"),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, SignUpScreen.id);
-                          },
-                          child: Text(
-                            "Sign Up",
-                            style: TextStyle(color: lightRed),
-                          ))
-                    ],
-                  ),
-                ],
-              ),
+              Flexible(
+                flex: 2,
+                fit: FlexFit.loose,
+                child: //Button & Sign Up
+                    Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    //Button
+                    RoundedButtonLogin(
+                        colour: lightRed,
+                        text: 'Login',
+                        pressed: () {
+                          loginAction();
+                        }),
+                    //Sign up Text
+                    Flexible(
+                      flex: 2,
+                      fit: FlexFit.loose,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don't have an account?"),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, SignUpScreen.id);
+                              },
+                              child: Text(
+                                "Sign Up",
+                                style: TextStyle(color: lightRed),
+                              ))
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
