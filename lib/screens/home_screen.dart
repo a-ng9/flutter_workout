@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_workout/screens/askBud_screen.dart';
 import 'package:flutter_workout/screens/friends_screens/friends_screen.dart';
 import 'package:flutter_workout/screens/report_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'homeScreen';
@@ -12,9 +16,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  _saveDeviceToken(uid) async {
+    // Get the token for this device
+    String fcmToken = await _fcm.getToken();
+
+    // Save it to Firestore
+    if (fcmToken != null) {
+      var tokens =
+          _db.collection('Users').doc(uid).collection('tokens').doc(fcmToken);
+
+      await tokens
+          .set({
+            'token': fcmToken,
+            'createdAt': FieldValue.serverTimestamp(), // optional
+          })
+          .then((value) => print("Device Token SAVED!"))
+          .catchError((error) => print("Failed to update user: $error"));
+    }
+  }
+
+  Future<void> updateDeviceToken() async {
+    CollectionReference users = FirebaseFirestore.instance.collection('Users');
+
+    String fcmToken = await _fcm.getToken();
+    return users
+        .doc(_auth.currentUser.uid.toString())
+        .collection('tokens')
+        .doc(fcmToken)
+        .update({
+          'token': fcmToken,
+          'createdAt': FieldValue.serverTimestamp(),
+        })
+        .then((value) => print("Device Token Updated"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
   int _selectedScreen = 1;
-  // String _uid;
-  // FirebaseAuth _auth = FirebaseAuth.instance;
 
   final _screenOptions = [
     ReportScreen(),
@@ -22,24 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
     FriendsScreen(),
   ];
 
-  // Future<void> getUserid() async {
-  //   setState(() {
-  //     try {
-  //       _uid = _auth.currentUser.uid.toString();
-  //     } catch (err) {
-  //       print(err);
-  //     }
-  //   });
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   getUserid().then((_) {
-  //     UserStatus.makeUserOnline(_uid);
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _saveDeviceToken(_auth.currentUser.uid.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
