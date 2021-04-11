@@ -20,7 +20,6 @@ import 'package:flutter_workout/screens/workoutList_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter_workout/service/database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -101,12 +100,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         makeUserOffline();
       }
     }
-
-    // if (isBackground) {
-    //   if (uid != null) {
-    //     makeUserOffline();
-    //   }
-    // }
   }
 
   @override
