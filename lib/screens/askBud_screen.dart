@@ -19,40 +19,10 @@ class AskBuddyScreen extends StatefulWidget {
 }
 
 class _AskBuddyScreenState extends State<AskBuddyScreen> {
-  // Future<void> sendNotification(String promoId, String promoDesc) async {
-  //   try {
-  //     final results = await FirebaseFunctions.instance
-  //         .httpsCallable('sendNotification')
-  //         .call({
-  //       "your_param_sent_from_the_client": 'z0FyjV0p3xeu9wUJeUYuidtB4iq2'
-  //     });
-  //     print(results);
-  //   } catch (err) {
-  //     print('ERROR: $err');
-  //   }
-  // }
   static var postUrl = "https://fcm.googleapis.com/fcm/send";
-  // static var token;
-  //
 
   static Future<void> sendNotification(receiver, msg) async {
-    print('receiver : $receiver');
     var token = await getToken(receiver);
-    print('token : $token');
-
-    // final data = {
-    //   "notification": {
-    //     "title": "WorkOut?",
-    //     "body": "Do you want to workout with me?",
-    //   },
-    //   "priority": "high",
-    //   "data": {
-    //     "click_action": "FLUTTER_NOTIFICATION_CLICK",
-    //     "id": "1",
-    //     "status": "done"
-    //   },
-    //   "to": "$token"
-    // };
 
     final headers = {
       'content-type': 'application/json',
@@ -69,10 +39,14 @@ class _AskBuddyScreenState extends State<AskBuddyScreen> {
           {
             "notification": {
               "title": "Workout?",
-              "body": "Do you want to workout with me?"
+              "body":
+                  "Do you want to workout with ${auth.currentUser.displayName.toString()}?",
             },
             "priority": "high",
             "data": {
+              "hasAccept": "false",
+              "senderUid": "${auth.currentUser.uid.toString()}",
+              "senderName": "${auth.currentUser.displayName.toString()}",
               "click_action": "FLUTTER_NOTIFICATION_CLICK",
               "id": "1",
               "status": "done"

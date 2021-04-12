@@ -7,6 +7,7 @@ class UserModel {
   final String displayName;
   final String email;
   bool presence;
+  final String buddy;
 
   UserModel({
     @required this.uid,
@@ -14,15 +15,16 @@ class UserModel {
     @required this.displayName,
     @required this.email,
     @required this.presence,
+    this.buddy,
   });
 
   factory UserModel.fromDocument(DocumentSnapshot doc) {
     return UserModel(
-      uid: doc['uid'],
-      username: doc['username'],
-      displayName: doc['display_name'],
-      email: doc['email'],
-      presence: doc['presence'],
-    );
+        uid: doc['uid'],
+        username: doc['username'],
+        displayName: doc['display_name'],
+        email: doc['email'],
+        presence: doc['presence'],
+        buddy: doc['buddy']);
   }
 }

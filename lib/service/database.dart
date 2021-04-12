@@ -19,14 +19,12 @@ userSetup(String displayName, username, email) async {
     'email': email,
     'uid': uid,
     'presence': true,
+    'buddy': '',
   });
 
   doc = await usersRef.doc(uid).get();
 
   currentUser = UserModel.fromDocument(doc);
-
-  // print('CurrentUser: $currentUser');
-  // print('displayName: ${currentUser.displayName}');
 
   currentUser = UserModel.fromDocument(doc);
 }

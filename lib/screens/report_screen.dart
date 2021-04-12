@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// import 'package:flutter_workout/components/reportContainer.dart';
 import 'package:flutter_workout/const.dart';
 import 'package:flutter_workout/helpers/user_status.dart';
 import 'package:flutter_workout/model/user.dart';
@@ -40,8 +39,8 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   void initState() {
-    _fetchUserDetails();
     super.initState();
+    _fetchUserDetails();
   }
 
   @override
@@ -60,11 +59,32 @@ class _ReportScreenState extends State<ReportScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
-            onPressed: () async {
-              UserStatus.makeUserOffline(auth.currentUser.uid.toString());
-              await FirebaseAuth.instance.signOut();
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  content: ListTile(
+                    title: Text("Sign Out"),
+                    subtitle: Text('Are you sure you want to sign out?'),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text('Yes'),
+                      onPressed: () async {
+                        UserStatus.makeUserOffline(
+                            auth.currentUser.uid.toString());
+                        await FirebaseAuth.instance.signOut();
 
-              Navigator.pushReplacementNamed(context, LoginScreen.id);
+                        Navigator.pushReplacementNamed(context, LoginScreen.id);
+                      },
+                    ),
+                    TextButton(
+                      child: Text('No'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                ),
+              );
             },
           )
         ],
