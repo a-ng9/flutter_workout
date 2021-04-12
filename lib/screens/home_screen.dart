@@ -110,21 +110,20 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
-  Future<void> updateDeviceToken() async {
-    CollectionReference users = FirebaseFirestore.instance.collection('Users');
-
-    String fcmToken = await _fcm.getToken();
-    return users
-        .doc(_auth.currentUser.uid.toString())
-        .collection('tokens')
-        .doc(fcmToken)
-        .update({
-          'token': fcmToken,
-          'createdAt': FieldValue.serverTimestamp(),
-        })
-        .then((value) => print("Device Token Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
-  }
+  // Future<void> updateDeviceToken() async {
+  //   CollectionReference users = FirebaseFirestore.instance.collection('Users');
+  //   String fcmToken = await _fcm.getToken();
+  //   return users
+  //       .doc(_auth.currentUser.uid.toString())
+  //       .collection('tokens')
+  //       .doc(fcmToken)
+  //       .update({
+  //         'token': fcmToken,
+  //         'createdAt': FieldValue.serverTimestamp(),
+  //       })
+  //       .then((value) => print("Device Token Updated"))
+  //       .catchError((error) => print("Failed to update user: $error"));
+  // }
 
   Future<void> addSenderNameInReceiver(String name) {
     //this function add the sender's(userA) name into the (userB)receiver's firebase under 'buddy'

@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +17,8 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+
   String displayName;
   String username;
   UserModel currentUser;
@@ -35,6 +38,17 @@ class _ReportScreenState extends State<ReportScreen> {
       // print('display Name = ${auth.currentUser.displayName}');
       // print('my username is = $username');
     }
+  }
+
+  Future<void> deleteToken() async {
+    String fcmToken = await _fcm.getToken();
+    return users
+        .doc(auth.currentUser.uid.toString())
+        .collection('tokens')
+        .doc(fcmToken)
+        .delete()
+        .then((value) => print("Deleted"))
+        .catchError((error) => print("Failed to delete user: $error"));
   }
 
   @override
@@ -71,11 +85,13 @@ class _ReportScreenState extends State<ReportScreen> {
                     TextButton(
                       child: Text('Yes'),
                       onPressed: () async {
+                        await deleteToken();
                         UserStatus.makeUserOffline(
                             auth.currentUser.uid.toString());
                         await FirebaseAuth.instance.signOut();
 
-                        Navigator.pushReplacementNamed(context, LoginScreen.id);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, LoginScreen.id, (route) => false);
                       },
                     ),
                     TextButton(
