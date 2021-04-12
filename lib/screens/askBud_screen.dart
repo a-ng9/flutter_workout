@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -7,8 +9,105 @@ import 'package:flutter_workout/components/roundedButton.dart';
 import 'package:flutter_workout/helpers/user_status.dart';
 import 'package:flutter_workout/screens/workingOut_screen.dart';
 
-class AskBuddyScreen extends StatelessWidget {
+import 'package:http/http.dart' as http;
+
+class AskBuddyScreen extends StatefulWidget {
   static const String id = "AskBuddy_Screen";
+
+  @override
+  _AskBuddyScreenState createState() => _AskBuddyScreenState();
+}
+
+class _AskBuddyScreenState extends State<AskBuddyScreen> {
+  // Future<void> sendNotification(String promoId, String promoDesc) async {
+  //   try {
+  //     final results = await FirebaseFunctions.instance
+  //         .httpsCallable('sendNotification')
+  //         .call({
+  //       "your_param_sent_from_the_client": 'z0FyjV0p3xeu9wUJeUYuidtB4iq2'
+  //     });
+  //     print(results);
+  //   } catch (err) {
+  //     print('ERROR: $err');
+  //   }
+  // }
+  static var postUrl = "https://fcm.googleapis.com/fcm/send";
+  // static var token;
+  //
+
+  static Future<void> sendNotification(receiver, msg) async {
+    print('receiver : $receiver');
+    var token = await getToken(receiver);
+    print('token : $token');
+
+    // final data = {
+    //   "notification": {
+    //     "title": "WorkOut?",
+    //     "body": "Do you want to workout with me?",
+    //   },
+    //   "priority": "high",
+    //   "data": {
+    //     "click_action": "FLUTTER_NOTIFICATION_CLICK",
+    //     "id": "1",
+    //     "status": "done"
+    //   },
+    //   "to": "$token"
+    // };
+
+    final headers = {
+      'content-type': 'application/json',
+      'Authorization':
+          'key=AAAAwYa2W3Y:APA91bEr9X9PX2aLLrBeD_Af-RGXa3yAW2edg7A6Ys5DMCv5Ph3h6x6DOZ7_w9DVDyTyldIKy9E7YksfKUs-R4kpyrvfx6SN2Xuwq0odoLokTu_nt72vlHrZvv3KS2rb1Ny__Vse454m'
+    };
+
+    try {
+      final url = Uri.parse('$postUrl');
+      var response = await http.post(
+        url,
+        headers: headers,
+        body: json.encode(
+          {
+            "notification": {
+              "title": "Workout?",
+              "body": "Do you want to workout with me?"
+            },
+            "priority": "high",
+            "data": {
+              "click_action": "FLUTTER_NOTIFICATION_CLICK",
+              "id": "1",
+              "status": "done"
+            },
+            "to": "$token"
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print(response.body.toString());
+        print('Notification sent');
+      } else {
+        print(response.body.toString());
+      }
+    } catch (err) {}
+  }
+
+  static Future<String> getToken(userId) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+    var token;
+    await _db
+        .collection('Users')
+        .doc(userId)
+        .collection('tokens')
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((doc) {
+        token = doc.id;
+      });
+    });
+
+    return token;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +147,11 @@ class AskBuddyScreen extends StatelessWidget {
                           ? SizedBox.shrink()
                           : BuddyTile(
                               nameTitle: document.data()['display_name'],
+                              onPressed: () async {
+                                sendNotification(
+                                    document.data()['uid'].toString(),
+                                    "Description Message");
+                              },
                             );
                     }).toList(),
                   );

@@ -1,12 +1,13 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_workout/screens/askBud_screen.dart';
+import 'package:flutter_workout/screens/askBud_screen.dart';
 import 'package:flutter_workout/screens/friends_screens/friends_screen.dart';
 import 'package:flutter_workout/screens/report_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'homeScreen';
@@ -15,10 +16,13 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // StreamSubscription iosSubscription;
 
   _saveDeviceToken(uid) async {
     // Get the token for this device
@@ -56,7 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   int _selectedScreen = 1;
-
   final _screenOptions = [
     ReportScreen(),
     WorkoutListScreen(),
@@ -67,6 +70,57 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _saveDeviceToken(_auth.currentUser.uid.toString());
+
+    //when app is opned
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print("onMessage: $message");
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: ListTile(
+            title: Text(message.notification.title ?? 'null'),
+            subtitle: Text(message.notification.body ?? 'null'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () =>
+                  Navigator.pushReplacementNamed(context, AskBuddyScreen.id),
+            ),
+            TextButton(
+              child: Text('No'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    });
+
+    ///When app is not opened
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      print("onMessage: $message");
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: ListTile(
+            title: Text(message.notification.title ?? 'Title is null'),
+            subtitle: Text(message.notification.body ?? 'Body is null'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () =>
+                  Navigator.pushReplacementNamed(context, AskBuddyScreen.id),
+            ),
+            TextButton(
+              child: Text('No'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   @override

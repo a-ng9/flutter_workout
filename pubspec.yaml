@@ -40,7 +40,9 @@ dependencies:
   firebase_messaging: 9.0.1
   cloud_firestore: 1.0.1
   cloud_functions: 1.0.2
-  dio: 4.0.0
+  firebase_auth_web: 1.0.1
+  http: 0.13.0
+
 
 
 dev_dependencies:

@@ -4,8 +4,9 @@ import 'package:flutter_workout/const.dart';
 class BuddyTile extends StatelessWidget {
   final String nameTitle;
   final Color colour;
+  final Function onPressed;
 
-  const BuddyTile({this.nameTitle, this.colour});
+  const BuddyTile({this.nameTitle, this.colour, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +21,11 @@ class BuddyTile extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.horizontal(right: Radius.circular(9)),
             ),
-            child: Row(
-              children: [
-                // Icon(Icons.circle, size: 12, color: colour),
-                // SizedBox(width: 10),
-                Text(nameTitle,
-                    style: TextStyle(
-                      color: darkBlack,
-                      fontSize: 20,
-                    )),
-              ],
-            ),
+            child: Text(nameTitle,
+                style: TextStyle(
+                  color: darkBlack,
+                  fontSize: 20,
+                )),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12.5),
@@ -47,7 +42,7 @@ class BuddyTile extends StatelessWidget {
                           width: 50,
                           height: 50,
                           child: Icon(Icons.send_outlined)),
-                      onTap: () {},
+                      onTap: onPressed,
                     ),
                   ),
                 ),
