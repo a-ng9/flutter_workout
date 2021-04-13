@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_workout/helpers/get_token.dart';
 import 'package:flutter_workout/helpers/get_userInfo.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -45,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       //If userCredentials is filled with an account, make user online && Navigate to homeScreen
       if (userCredential != null) {
+        await TokenInfo.deleteAllTokens();
         UserStatus.makeUserOnline(auth.currentUser.uid.toString());
         Navigator.pushReplacementNamed(context, HomeScreen.id);
       }
@@ -149,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    //Button
+                    //Login Button
                     RoundedButtonLogin(
                         colour: lightRed,
                         text: 'Login',

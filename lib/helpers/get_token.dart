@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_workout/helpers/get_userInfo.dart';
 
@@ -26,5 +27,22 @@ class TokenInfo {
         .delete()
         .then((value) => print("Deleted"))
         .catchError((error) => print("Failed to delete user: $error"));
+  }
+
+  static Future<void> deleteAllTokens() async {
+    return users
+        .doc(auth.currentUser.uid.toString())
+        .collection('tokens')
+        .get()
+        .then((snapshot) {
+      for (DocumentSnapshot doc in snapshot.docs) {
+        doc.reference.delete();
+        print("Deleted");
+      }
+    }).catchError((error) => print("Failed to delete user: $error"));
+
+    // .delete()
+    // .then((value) => print("Deleted"))
+    // .catchError((error) => print("Failed to delete user: $error"));
   }
 }

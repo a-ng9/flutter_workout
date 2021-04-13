@@ -3,8 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_workout/model/user.dart';
 
 CollectionReference usersRef = FirebaseFirestore.instance.collection("Users");
-CollectionReference followingRef =
-    FirebaseFirestore.instance.collection("following");
+
 UserModel currentUser;
 
 userSetup(String displayName, username, email) async {

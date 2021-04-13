@@ -7,7 +7,6 @@ import 'package:flutter_workout/service/database.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String id = 'signUpScreen';

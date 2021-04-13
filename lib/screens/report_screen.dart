@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,8 +22,6 @@ class _ReportScreenState extends State<ReportScreen> {
   UserModel currentUser;
 
   _fetchUserDetails() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    String uid = auth.currentUser.uid.toString();
     DocumentSnapshot doc = await usersRef.doc(uid).get();
 
     currentUser = UserModel.fromDocument(doc);
@@ -60,6 +57,7 @@ class _ReportScreenState extends State<ReportScreen> {
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
+              //dialog to confirm if user wants to sign out
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
@@ -68,6 +66,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     subtitle: Text('Are you sure you want to sign out?'),
                   ),
                   actions: <Widget>[
+                    //If yes: remove token, user offline, naviagte to loginScreen
                     TextButton(
                       child: Text('Yes'),
                       onPressed: () async {
@@ -80,6 +79,7 @@ class _ReportScreenState extends State<ReportScreen> {
                             context, LoginScreen.id, (route) => false);
                       },
                     ),
+                    //if no, just pop showDialog
                     TextButton(
                       child: Text('No'),
                       onPressed: () => Navigator.of(context).pop(),

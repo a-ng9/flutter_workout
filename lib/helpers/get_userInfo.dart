@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 CollectionReference users = FirebaseFirestore.instance.collection('Users');
+String uid = auth.currentUser.uid.toString();
 
 class UserStatus {
   //Change(update) user presence in Firestore
