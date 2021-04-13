@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_workout/const.dart';
 
 class RunnerUp extends StatelessWidget {
-  const RunnerUp({this.name, this.score, this.colour, this.status});
+  const RunnerUp(
+      {this.name,
+      this.score,
+      this.iconColour,
+      this.status,
+      this.fontWeight,
+      this.rank});
 
   final String name;
   final String status;
-  final int score;
-  // final int rank;
-  final Color colour;
+  final String score;
+  final String rank;
+  final Color iconColour;
+  final FontWeight fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +37,7 @@ class RunnerUp extends StatelessWidget {
                   //icon status
                   Padding(
                     padding: const EdgeInsets.only(right: 15.0),
-                    child: Icon(Icons.circle, size: 12, color: colour),
+                    child: Icon(Icons.circle, size: 12, color: iconColour),
                   ),
                   //name
                   Column(
@@ -39,7 +46,11 @@ class RunnerUp extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: TextStyle(color: darkBlack, fontSize: 20),
+                        style: TextStyle(
+                          color: darkBlack,
+                          fontSize: 20,
+                          fontWeight: fontWeight,
+                        ),
                       ),
                       // Text(
                       //   status,
@@ -58,15 +69,15 @@ class RunnerUp extends StatelessWidget {
               ),
             ),
           ),
-          //Rank
-          // Expanded(
-          //   child: Center(
-          //       child: Text(
-          //     '#$rank',
-          //     style: TextStyle(
-          //         color: lightRed, fontSize: 24, fontWeight: FontWeight.w500),
-          //   )),
-          // ),
+          // Rank
+          Expanded(
+            child: Center(
+                child: Text(
+              '#$rank',
+              style: TextStyle(
+                  color: lightRed, fontSize: 24, fontWeight: FontWeight.w500),
+            )),
+          ),
         ],
       ),
     );

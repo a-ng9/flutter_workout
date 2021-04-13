@@ -6,6 +6,7 @@ class UserModel {
   final String username;
   final String displayName;
   final String email;
+  final String points;
   bool presence;
   final String buddy;
 
@@ -14,6 +15,7 @@ class UserModel {
     @required this.username,
     @required this.displayName,
     @required this.email,
+    @required this.points,
     @required this.presence,
     this.buddy,
   });
@@ -24,6 +26,7 @@ class UserModel {
         username: doc['username'],
         displayName: doc['display_name'],
         email: doc['email'],
+        points: doc['points'],
         presence: doc['presence'],
         buddy: doc['buddy']);
   }

@@ -30,7 +30,9 @@ class FriendsScreen extends StatelessWidget {
         children: [
           ////1st Rank
           Padding(
-            padding: const EdgeInsets.only(top: 20.0, bottom: 5.0),
+            padding: const EdgeInsets.only(
+              top: 20.0,
+            ),
             child: Stack(
               alignment: AlignmentDirectional.topCenter,
               children: [
@@ -38,50 +40,68 @@ class FriendsScreen extends StatelessWidget {
                 Positioned(
                   top: 25,
                   child: Text("100,000",
-                      style: TextStyle(color: lightRed, fontSize: 24)),
+                      style: TextStyle(color: Colors.white, fontSize: 24)),
                 )
               ],
             ),
           ),
-          Center(
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 30),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                top: const Radius.circular(15),
+              ),
+            ),
             child: Text(
               "Charles Anderson",
               style: TextStyle(
-                  color: lightRed, fontSize: 24, fontWeight: FontWeight.w500),
+                color: Colors.black,
+                fontSize: 24,
+              ),
             ),
           ),
           ////Runner ups widgets
           Expanded(
             //Using streamBuilder to get live information from firestore database
             child: StreamBuilder(
-                stream: users.snapshots(),
+                stream: users.orderBy('points', descending: true).snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
                     return Text('Something went wrong');
                   }
-
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   }
-                  //Widget details is here
-                  return ListView(
-                    children:
-                        snapshot.data.docs.map((DocumentSnapshot document) {
-                      return auth.currentUser.uid.toString() ==
-                              document.data()['uid']
-                          ? SizedBox.shrink()
-                          : RunnerUp(
-                              status: document.data()['presence'] == true
-                                  ? 'Online'
-                                  : 'Offline',
-                              colour: document.data()['presence'] == true
-                                  ? Colors.green
-                                  : Colors.grey[400],
-                              name: document.data()['display_name'],
-                              score: 0);
-                    }).toList(),
-                  );
+                  /////Widget details is here
+                  return ListView.builder(
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (context, index) {
+                        return auth.currentUser.uid.toString() ==
+                                snapshot.data.docs[index]['uid']
+                            ? RunnerUp(
+                                rank: (index + 2).toString(),
+                                status: '',
+                                iconColour: Colors.white,
+                                name: snapshot.data.docs[index]['display_name'],
+                                fontWeight: FontWeight.w700,
+                                score: snapshot.data.docs[index]['points'])
+                            : RunnerUp(
+                                status: snapshot.data.docs[index]['presence'] ==
+                                        true
+                                    ? 'Online'
+                                    : 'Offline',
+                                iconColour: snapshot.data.docs[index]
+                                            ['presence'] ==
+                                        true
+                                    ? Colors.green
+                                    : Colors.grey[400],
+                                rank: (index + 2).toString(),
+                                name: snapshot.data.docs[index]['display_name'],
+                                fontWeight: FontWeight.normal,
+                                score: snapshot.data.docs[index]['points']);
+                      });
                 }),
           ),
         ],

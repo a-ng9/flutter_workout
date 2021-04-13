@@ -17,6 +17,7 @@ userSetup(String displayName, username, email) async {
     'username': username,
     'email': email,
     'uid': uid,
+    'points': '0',
     'presence': true,
     'buddy': '',
   });

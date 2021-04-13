@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+
 import 'package:flutter_workout/const.dart';
+import 'package:flutter_workout/helpers/get_userInfo.dart';
 import 'package:flutter_workout/screens/home_screen.dart';
 
 import 'package:confetti/confetti.dart';
@@ -15,6 +17,14 @@ class FinishScreen extends StatefulWidget {
 
 class _FinishScreenState extends State<FinishScreen> {
   ConfettiController controller;
+
+  Future<void> updatePoints() {
+    return users
+        .doc(auth.currentUser.uid.toString())
+        .update({'points': '1,000'})
+        .then((value) => print("1000 points added"))
+        .catchError((error) => print("Failed to add points: $error"));
+  }
 
   @override
   void initState() {
@@ -35,6 +45,7 @@ class _FinishScreenState extends State<FinishScreen> {
             size: 30,
           ),
           onPressed: () {
+            updatePoints();
             Navigator.pushNamedAndRemoveUntil(
                 context, HomeScreen.id, (route) => false);
           },
@@ -103,7 +114,7 @@ class _FinishScreenState extends State<FinishScreen> {
             flex: 4,
             child: Column(
               children: [
-                Text("1000",
+                Text("1,000",
                     style:
                         TextStyle(fontSize: 60, fontWeight: FontWeight.bold)),
                 Text("Points Earned",
@@ -126,21 +137,6 @@ class _FinishScreenState extends State<FinishScreen> {
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                   Text("Workouts")
                 ]),
-                //Num of Points
-                Column(children: [
-                  Text("1000",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                  Text("Points")
-                ]),
-                //Partner Multiplier
-                Column(children: [
-                  Text("1",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                  Text("Partner"),
-                  Text("Multiplier")
-                ])
               ],
             ),
           ),
@@ -156,6 +152,7 @@ class _FinishScreenState extends State<FinishScreen> {
                 shape: CircleBorder(),
                 padding: const EdgeInsets.all(20),
                 onPressed: () {
+                  updatePoints();
                   Navigator.pushNamedAndRemoveUntil(
                       context, HomeScreen.id, (route) => false);
                 },
