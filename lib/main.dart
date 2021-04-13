@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_workout/const.dart';
+import 'package:flutter_workout/helpers/get_token.dart';
 import 'package:flutter_workout/screens/friends_screens/searchFriend_screen.dart';
 import 'package:flutter_workout/screens/logInUp_screen/login_screen.dart';
 import 'package:flutter_workout/screens/finish_screen.dart';
@@ -94,6 +95,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     } else if (state == AppLifecycleState.resumed) {
       if (uid != null) {
         makeUserOnline();
+        TokenInfo.getToken(uid);
       }
     } else if (state == AppLifecycleState.inactive) {
       if (uid != null) {

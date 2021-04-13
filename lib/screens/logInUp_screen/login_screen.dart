@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_workout/helpers/user_status.dart';
+import 'package:flutter_workout/helpers/get_userInfo.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import 'package:flutter_workout/const.dart';
@@ -23,23 +24,34 @@ class _LoginScreenState extends State<LoginScreen> {
   InputDecoration passwordTextFieldDeco;
 
   Future loginAction() async {
-    setState(() {
-      showSpinner = true;
-    });
+    //////try method will try to make the user login with the below functions
     try {
+      //Stop Showing spinner
+      setState(() {
+        showSpinner = false;
+      });
+
+      //matching inputControllers with firebaseAuth's parameters (email and password)
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+
+      //Start Showing spinner
       setState(() {
-        showSpinner = false;
+        showSpinner = true;
       });
+
+      //If userCredentials is filled with an account, make user online && Navigate to homeScreen
       if (userCredential != null) {
-        Navigator.pushReplacementNamed(context, HomeScreen.id);
         UserStatus.makeUserOnline(auth.currentUser.uid.toString());
+        Navigator.pushReplacementNamed(context, HomeScreen.id);
       }
+
+      //////If any error occurs such as password not match, user email invalid etc....
     } on FirebaseAuthException catch (e) {
+      //Stop showing spinner
       setState(() {
         showSpinner = false;
       });
@@ -59,9 +71,11 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  //Setting the input decorations for the textfields with their apropriate colours and icons
   @override
   void initState() {
     super.initState();
+    //Setting the input decorations for the textfields with their apropriate colours and icons
     emailTextFieldDeco = inputTextFieldDefault;
     passwordTextFieldDeco = inputTextFieldDefault.copyWith(
         hintText: "Password",
@@ -73,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
+        //Modal that will show the spinner when showSpinner is true (from setStates in login function)
         child: ModalProgressHUD(
           opacity: 0.01,
           inAsyncCall: showSpinner,
@@ -127,11 +142,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
+              //Button & Sign Up
               Flexible(
                 flex: 2,
                 fit: FlexFit.loose,
-                child: //Button & Sign Up
-                    Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     //Button
@@ -141,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         pressed: () {
                           loginAction();
                         }),
-                    //Sign up Text
+                    //Sign up Texts
                     Flexible(
                       flex: 2,
                       fit: FlexFit.loose,

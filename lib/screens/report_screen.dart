@@ -4,7 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter_workout/const.dart';
-import 'package:flutter_workout/helpers/user_status.dart';
+import 'package:flutter_workout/helpers/get_token.dart';
+import 'package:flutter_workout/helpers/get_userInfo.dart';
 import 'package:flutter_workout/model/user.dart';
 import 'package:flutter_workout/screens/logInUp_screen/login_screen.dart';
 import 'package:flutter_workout/service/database.dart';
@@ -17,8 +18,6 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-
   String displayName;
   String username;
   UserModel currentUser;
@@ -35,20 +34,7 @@ class _ReportScreenState extends State<ReportScreen> {
         displayName = auth.currentUser.displayName.toString();
         username = UserModel.fromDocument(doc).username.toString();
       });
-      // print('display Name = ${auth.currentUser.displayName}');
-      // print('my username is = $username');
     }
-  }
-
-  Future<void> deleteToken() async {
-    String fcmToken = await _fcm.getToken();
-    return users
-        .doc(auth.currentUser.uid.toString())
-        .collection('tokens')
-        .doc(fcmToken)
-        .delete()
-        .then((value) => print("Deleted"))
-        .catchError((error) => print("Failed to delete user: $error"));
   }
 
   @override
@@ -85,7 +71,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     TextButton(
                       child: Text('Yes'),
                       onPressed: () async {
-                        await deleteToken();
+                        await TokenInfo.deleteToken();
                         UserStatus.makeUserOffline(
                             auth.currentUser.uid.toString());
                         await FirebaseAuth.instance.signOut();

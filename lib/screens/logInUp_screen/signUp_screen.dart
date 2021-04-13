@@ -27,37 +27,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   InputDecoration emailTextFieldDeco;
   InputDecoration passwordTextFieldDeco;
-  CollectionReference users = FirebaseFirestore.instance.collection("Users");
-  Future<void> makeUserOnline(uid) {
-    return users
-        .doc(uid)
-        .update({'presence': true})
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
-  }
 
   Future signUpAction() async {
     setState(() {
       showSpinner = true;
     });
+
+    //////try method will try to make the user signup a new account with the below functions
     try {
+      //matching inputControllers with firebaseAuth's parameters (email and password)
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
 
-      User updateUser = FirebaseAuth.instance.currentUser;
+      //updating & adding user's display name from FirebaseAuth
+      User actualUser = FirebaseAuth.instance.currentUser;
+      await actualUser.updateProfile(displayName: nameController.text);
 
-      await updateUser.updateProfile(displayName: nameController.text);
+      //saving the displayName, username and email to firestore database (service/database.dart)
       userSetup(
           nameController.text, usernameController.text, emailController.text);
 
+      //Stop Showing spinner
+      setState(() {
+        showSpinner = false;
+      });
+
+      //when all of the above code has run, it is time to check if there is something is userCredential
+      //If userCredential has some data, navigate user to home screen
       if (userCredential != null) {
         Navigator.pushNamedAndRemoveUntil(
             context, HomeScreen.id, (route) => false);
       }
-      setState(() {
-        showSpinner = false;
-      });
+
+      //////If any error occurs such as weak password, email already taken etc....
     } on FirebaseAuthException catch (e) {
       setState(() {
         showSpinner = false;
@@ -83,9 +86,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
+  //Setting the input decorations for the textfields with their apropriate colours and icons
   @override
   void initState() {
     super.initState();
+    //Setting the input decorations for the textfields with their apropriate colours and icons
     emailTextFieldDeco = inputTextFieldDefault;
     passwordTextFieldDeco = inputTextFieldDefault.copyWith(
         hintText: "Password",
@@ -102,6 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         centerTitle: false,
         title: Text("Sign Up"),
         actions: [
+          //back button to go back to login screen
           IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () {
@@ -109,6 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               })
         ],
       ),
+      //Modal that will show the spinner when showSpinner is true (from setStates in login function)
       body: ModalProgressHUD(
         opacity: 0.01,
         inAsyncCall: showSpinner,
@@ -128,7 +135,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         prefixIcon: Icon(Icons.person, color: Colors.white)),
                   ),
                   SizedBox(height: 8.0),
+
                   //TextInput for Username
+                  //
                   TextFormField(
                     validator: (val) {
                       if (val.trim().length < 3 || val.isEmpty) {
@@ -144,8 +153,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         prefixIcon: Icon(Icons.account_box_rounded,
                             color: Colors.white)),
                   ),
-                  //TextInput for Email
                   SizedBox(height: 8.0),
+
+                  //TextInput for Email
                   TextFormField(
                     controller: emailController,
                     decoration: inputTextFieldDefault,
@@ -154,6 +164,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         : null,
                   ),
                   SizedBox(height: 8.0),
+
                   // TextInput for Password
                   TextFormField(
                     controller: passwordController,
@@ -167,7 +178,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ],
               ),
-              ////Sign Up
+              ////Sign Up button
               Column(
                 children: [
                   Expanded(child: SizedBox()),
@@ -177,17 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         colour: lightRed,
                         text: 'Sign Up',
                         pressed: () {
-                          // showDialog(
-                          //     context: context,
-                          //     builder: (BuildContext context) {
-                          //       return Center(
-                          //         child: CircularProgressIndicator(),
-                          //       );
-                          //     });
-
                           signUpAction();
-                          // Navigator.pushNamedAndRemoveUntil(
-                          //     context, HomeScreen.id, (route) => false);
                         }),
                   ),
                 ],

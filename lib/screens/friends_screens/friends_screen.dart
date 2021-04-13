@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_workout/components/runnerUp.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter_workout/const.dart';
-import 'package:flutter_workout/helpers/user_status.dart';
+import 'package:flutter_workout/components/runnerUp.dart';
+import 'package:flutter_workout/helpers/get_userInfo.dart';
 import 'package:flutter_workout/screens/friends_screens/searchFriend_screen.dart';
 
 class FriendsScreen extends StatelessWidget {
@@ -49,15 +50,9 @@ class FriendsScreen extends StatelessWidget {
                   color: lightRed, fontSize: 24, fontWeight: FontWeight.w500),
             ),
           ),
-          ////Runner Ups
-          // RunnerUp(rank: 2, name: "John Doe", score: 1000),
-          // RunnerUp(rank: 3, name: "James Smith", score: 800),
-          // RunnerUp(
-          //     status: "online",
-          //     colour: Colors.green,
-          //     name: "Peter Miller",
-          //     score: 500),
+          ////Runner ups widgets
           Expanded(
+            //Using streamBuilder to get live information from firestore database
             child: StreamBuilder(
                 stream: users.snapshots(),
                 builder: (BuildContext context,
@@ -69,7 +64,7 @@ class FriendsScreen extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   }
-
+                  //Widget details is here
                   return ListView(
                     children:
                         snapshot.data.docs.map((DocumentSnapshot document) {
@@ -84,7 +79,7 @@ class FriendsScreen extends StatelessWidget {
                                   ? Colors.green
                                   : Colors.grey[400],
                               name: document.data()['display_name'],
-                              score: 500);
+                              score: 0);
                     }).toList(),
                   );
                 }),

@@ -5,6 +5,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
 CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
 class UserStatus {
+  //Change(update) user presence in Firestore
   static Future<void> makeUserOnline(uid) {
     return users
         .doc(uid)
