@@ -9,16 +9,17 @@ import 'package:flutter_workout/model/user.dart';
 import 'package:flutter_workout/screens/logInUp_screen/login_screen.dart';
 import 'package:flutter_workout/service/database.dart';
 
-class ReportScreen extends StatefulWidget {
+class ProfileScreen extends StatefulWidget {
   static const String id = 'reportScreen';
 
   @override
-  _ReportScreenState createState() => _ReportScreenState();
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _ReportScreenState extends State<ReportScreen> {
+class _ProfileScreenState extends State<ProfileScreen> {
   String displayName;
   String username;
+  String email;
   UserModel currentUser;
 
   _fetchUserDetails() async {
@@ -30,6 +31,7 @@ class _ReportScreenState extends State<ReportScreen> {
       setState(() {
         displayName = auth.currentUser.displayName.toString();
         username = UserModel.fromDocument(doc).username.toString();
+        email = UserModel.fromDocument(doc).email.toString();
       });
     }
   }
@@ -52,7 +54,7 @@ class _ReportScreenState extends State<ReportScreen> {
         backgroundColor: midNightBlue,
         elevation: 0,
         centerTitle: false,
-        title: Text("Report"),
+        title: Text("Profile"),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
@@ -94,8 +96,79 @@ class _ReportScreenState extends State<ReportScreen> {
       body: Padding(
         padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 14.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [Text("$displayName"), Text('username: $username')],
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.self_improvement_rounded,
+                  size: 120,
+                  color: lightRed,
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 30),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: const Radius.circular(15),
+                    ),
+                  ),
+                  child: Text(
+                    displayName,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Email",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w300),
+                      ),
+                      Text(
+                        email,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "username",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w300),
+                      ),
+                      Text(
+                        username,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

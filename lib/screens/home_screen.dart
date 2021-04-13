@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter_workout/screens/friends_screens/friends_screen.dart';
-import 'package:flutter_workout/screens/report_screen.dart';
+import 'package:flutter_workout/screens/profile_screen.dart';
 import 'package:flutter_workout/screens/workingOut_screen.dart';
 import 'package:flutter_workout/screens/workoutList_screen.dart';
 import 'package:flutter_workout/service/add_ReceiverName.dart';
@@ -105,9 +105,9 @@ class _HomeScreenState extends State<HomeScreen>
 
   int _selectedScreen = 1;
   final _screenOptions = [
-    ReportScreen(),
-    WorkoutListScreen(),
     FriendsScreen(),
+    WorkoutListScreen(),
+    ProfileScreen(),
   ];
 
   @override
@@ -151,17 +151,17 @@ class _HomeScreenState extends State<HomeScreen>
         selectedIconTheme: IconThemeData(size: 30),
         items: [
           BottomNavigationBarItem(
-            // icon: Icon(Icons.bar_chart_sharp),
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Report',
+            icon: Icon(Icons.people_alt_outlined),
+            label: 'Friends',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.sports_kabaddi_sharp),
             label: 'Workout',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people_alt_outlined),
-            label: 'Friends',
+            // icon: Icon(Icons.bar_chart_sharp),
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Profile',
           ),
         ],
         onTap: (index) {
